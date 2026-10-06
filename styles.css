@@ -265,6 +265,17 @@ iframe{border:0}
 .statcard__rule{width:24px;height:2px;background:var(--gold-grad);margin:8px 0 2px}
 .statcard__sub{font-size:.82rem;color:var(--muted-2)}
 
+@media(max-width:600px){
+  .hero{min-height:auto;padding:104px 0 46px}
+  .h-display{font-size:clamp(2rem,8vw,2.9rem)}
+  .hero__wrap{gap:26px}
+  .hero__sub{margin:16px 0 24px;font-size:1.02rem}
+  .hero__btns{gap:10px}
+  .hero__btns .btn{flex:1 1 100%;justify-content:center;padding:15px 22px}
+  .hero__stats{gap:12px}
+  .statcard{padding:18px 20px}
+}
+
 /* ============================================================
    O NAMA
    ============================================================ */
@@ -364,12 +375,37 @@ iframe{border:0}
   background:var(--gold-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
 .tl-desc{color:#cfd2d6;font-size:clamp(.95rem,1.2vw,1.1rem);max-width:26ch}
 
+/* Mobilni: statični VERTIKALNI timeline (bez pinned horizontalnog scrolla) */
 @media(max-width:600px){
-  .timeline{height:420vh}
-  .timeline__track{width:760vw;height:78vh;gap:7vw;padding:0 7vw}
-  .timeline__media{flex:0 0 84vw;height:64vw}
-  .tl-item{width:66vw}
-  .timeline__items{gap:40vw}
+  .timeline{height:auto;padding:68px 0}
+  .timeline__sticky{position:static;height:auto;overflow:visible;display:block}
+  .timeline__track{display:block;width:auto;height:auto;gap:0;padding:0 22px;transform:none !important}
+  .timeline__media{width:100%;height:58vw;max-height:300px;border-radius:16px;margin-bottom:30px}
+  .timeline__rail{position:relative;height:auto;padding-left:28px}
+  .timeline__rail::before{content:"";position:absolute;left:5px;top:8px;bottom:8px;width:2px;border-radius:2px;background:var(--gold-grad)}
+  .timeline__axis{display:none}
+  .timeline__row{display:block;height:auto}
+  .timeline__row--top,.timeline__row--bottom{align-items:stretch;padding:0}
+  .timeline__intro{margin-bottom:22px}
+  .timeline__intro .h-sect{font-size:2.3rem}
+  .timeline__period{display:none}
+  .timeline__items{display:block;flex:none;gap:0;padding-left:0}
+  .tl-item{position:relative;width:auto;padding:0 0 28px 0}
+  .tl-item::before{content:"";position:absolute;left:-28px;top:6px;width:13px;height:13px;border-radius:50%;
+    background:var(--gold-grad);box-shadow:0 0 0 4px rgba(201,162,75,.14)}
+  .tl-item__mark{display:none}
+  .tl-item__txt--up,.tl-item__txt--down{height:auto;padding:0;display:block}
+  .tl-title{font-size:1.9rem;margin-bottom:8px}
+  .tl-desc{max-width:none;font-size:1rem}
+
+  /* blagi reveal po stavkama dok se skroluje */
+  .timeline.tl-static .tl-item,
+  .timeline.tl-static .timeline__intro{
+    opacity:0;transform:translateY(22px);
+    transition:opacity .6s var(--ease),transform .6s var(--ease);
+  }
+  .timeline.tl-static .tl-item.in,
+  .timeline.tl-static .timeline__intro.in{opacity:1;transform:none}
 }
 
 /* ============================================================
@@ -493,6 +529,16 @@ iframe{border:0}
   font-size:.64rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;background:var(--gold-grad);color:#2a2008}
 .fcar__desc{color:#fff;font-size:1.02rem;line-height:1.42}
 @media(min-width:860px){.fcar__desc{font-size:1.1rem}}
+@media(max-width:600px){
+  .fcar__rail{min-height:262px;padding:22px}
+  .fcar__list{min-height:242px}
+  .fcar__chip{padding:11px 17px;font-size:.84rem;gap:10px}
+  .fcar__chip .ico{width:16px;height:16px}
+  .fcar__stage{padding:28px 16px}
+  .fcar__deck{width:min(288px,76%)}
+  .fcar__cap{padding:62px 18px 18px}
+  .fcar__desc{font-size:.95rem}
+}
 
 /* ============================================================
    LOKACIJE

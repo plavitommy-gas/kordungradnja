@@ -226,10 +226,10 @@ function initFeatureCarousel(){
   if (!n) return;
 
   let step = 0, timer = null;
-  const DELAY = 3200;
+  const DELAY = 4500;
 
   const mq = window.matchMedia('(min-width:860px)');
-  const dims = () => mq.matches ? { item:60, off:66 } : { item:54, off:48 };
+  const dims = () => mq.matches ? { item:60, off:66 } : { item:52, off:42 };
 
   const wrap = (min,max,v) => { const r = max - min; return ((((v - min) % r) + r) % r) + min; };
   const idx = () => ((step % n) + n) % n;
@@ -295,7 +295,24 @@ function initTimeline(){
   const section = document.querySelector('.timeline');
   const track = document.getElementById('tlTrack');
   const line = document.getElementById('tlLine');
-  if (!section || !track || typeof gsap === 'undefined') return;
+  if (!section || !track) return;
+
+  const mobile = window.innerWidth < 600;
+
+  // Mobilni: statični vertikalni timeline umesto pinned horizontalnog scrolla
+  // (smooth, bez "bagovanja", animacija uvek vidljiva do kraja)
+  if (mobile){
+    section.classList.add('tl-static');
+    const items = section.querySelectorAll('.tl-item, .timeline__intro');
+    if (reduce){ items.forEach(el => el.classList.add('in')); return; }
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold:.18, rootMargin:'0px 0px -6% 0px' });
+    items.forEach(el => io.observe(el));
+    return;
+  }
+
+  if (typeof gsap === 'undefined') return;
 
   const ids = ['2023','2024','2025','2026'];
   const topIds = ['2023','2024'];
@@ -309,8 +326,6 @@ function initTimeline(){
     ids.forEach(id => { gsap.set(`.jl-${id}`,{scaleY:1}); gsap.set(`.jd-${id}`,{scale:1}); });
     return;
   }
-
-  const mobile = window.innerWidth < 600;
   const slidePercent = mobile ? -57 : -62;
 
   // Horizontalni klizač vezan za scroll
