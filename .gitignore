@@ -1,0 +1,6 @@
+# interni build dokumenti (ne idu na javni repo)
+context.md
+teardown-vantara.md
+# OS
+Thumbs.db
+.DS_Store
